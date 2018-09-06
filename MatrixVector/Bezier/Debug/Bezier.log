@@ -1,2 +1,5 @@
-﻿  Bezier.vcxproj -> G:\Programs\cpp\MatrixVector\Debug\Bezier.exe
+﻿  Source.cpp
+g:\programs\cpp\matrixvector\bezier\source.cpp(164): warning C4018: '<': signed/unsigned mismatch
+g:\programs\cpp\matrixvector\bezier\source.cpp(170): warning C4018: '<': signed/unsigned mismatch
+  Bezier.vcxproj -> G:\Programs\cpp\MatrixVector\Debug\Bezier.exe
   Bezier.vcxproj -> G:\Programs\cpp\MatrixVector\Debug\Bezier.pdb (Full PDB)

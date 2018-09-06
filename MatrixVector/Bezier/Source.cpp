@@ -1,11 +1,27 @@
 // #include "Vector.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "GL Libraries\GL\glut.h"
 #include "Vector.h"
 
 #define WINDOW_SIZE 800
+
+vector <Vector> points;
+
+float factorial(int n) {
+	if (n <= 1)
+		return(1);
+	else
+		n = n*factorial(n - 1);
+	return n;
+}
+
+float kombinasi(float n, float k) {
+	float result = factorial(n) / (factorial(k)*factorial(n - k));
+	return result;
+}
 
 void idle() {
 	glutPostRedisplay();
@@ -41,10 +57,23 @@ void DrawTriangle(Vector v1, Vector v2, Vector v3) {
 	glEnd();
 }
 
-void DrawCircle(Vector point, int radius) {
+void DrawHalfCircle(Vector point, int radius, float bagian) {
 	glPointSize(0.5); //ukuran titik/point
 
-	// glRotatef(100, 1, 1, 1);
+	for (float i = -1.57; i < 1.57; i += 0.0001)
+	{
+		float x = point.x + cos(i) * radius;
+		float y = point.y + sin(i) * radius;
+
+		glBegin(GL_POINTS);
+		glVertex3f(x, y, 0);
+		glEnd();
+	}
+}
+
+void DrawCircle(Vector point, int radius, float bagian) {
+	glPointSize(0.5); //ukuran titik/point
+
 	for (float i = -3.14; i < 3.14; i += 0.0001)
 	{
 		float x = point.x + cos(i) * radius;
@@ -60,13 +89,59 @@ void DrawKotak() {
 
 }
 
+Vector get_calculated_berzier_point(vector<Vector> v, float t, int size) {
+	float x = 0, y = 0;
+	for (int i = 0; i < size; i++) {
+		// x += kombinasi((float)(size - 1), (float)i) * pow((1 - t) * 1.0, (size - i - 1) * 1.0) * pow(t*1.0, i) * v[i].x;
+		// y += kombinasi((float)(size - 1), (float)i) * pow((1 - t) * 1.0, (size - i - 1) * 1.0) * pow(t, i) * v[i].y;
+
+		// keep the column consistent~
+		x += kombinasi((float)(size - 1), (float)i) * pow(t, (double)i) * pow((1 - t), (size - 1 - i)) * v[i].x;
+		y += kombinasi((float)(size - 1), (float)i) * pow(t, (double)i) * pow((1 - t), (size - 1 - i)) * v[i].y;
+	}
+	return Vector(x, y, 0, 1);
+}
+
+void DrawBezier(vector<Vector> v, int size) {
+	glBegin(GL_POINTS);
+
+	for (float t = 0; t <= 1; t += 0.0001) {
+		Vector calculated_v = get_calculated_berzier_point(v, t, v.size());
+		glVertex3f(calculated_v.x, calculated_v.y, calculated_v.z);
+	}
+
+	glEnd();
+}
+
 void DisplayHouse() {
 	///// CLEAR /////
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glRotatef(1, 1, 1, 1);
-
+	glColor3f(1, 1, 1);
+	
 	///// DRAW /////
+
+	// CRESCENT MOON
+	Vector c1(-552, 750, 0, 1), c3(-552, 352, 0, 1), c2(-350, 525, 0, 1);
+	vector<Vector> v;
+	v.push_back(c1);
+	v.push_back(c2);
+	v.push_back(c3);
+	DrawHalfCircle(Vector(-550, 550, 0, 1), 200, 0.5); // DRAW 1/2 CIRCLE
+	DrawBezier(v, v.size());
+
+	// DRAW PUSHED POINTS
+	glBegin(GL_POINTS);
+	for (int i = 0; i < points.size(); i++) {
+		glVertex2f(points[i].x, points[i].y);
+	}
+	glEnd();
+	glBegin(GL_LINES);
+	for (int i = 1; i < points.size(); i+=1) {
+		glVertex2f(points[i-1].x, points[i-1].y); 
+		glVertex2f(points[i].x, points[i].y);
+	}
+	glEnd();
+
 	// SISI BAWAH
 	DrawLine(Vector(-300, -300, 0, 1), Vector(300, -300, 0, 1));
 	// ATAS
@@ -91,7 +166,7 @@ void DisplayHouse() {
 	// ATAS
 	DrawLine(Vector(-200, 50, 0, 1), Vector(0, 50, 0, 1));
 	// BULAT
-	DrawCircle(Vector(-175, -100, 0, 1), 10);
+	DrawCircle(Vector(-175, -100, 0, 1), 10, 1);
 
 	// JENDELA
 	// SISI KIRI & KANAN
@@ -108,7 +183,22 @@ void DisplayHouse() {
 	glutSwapBuffers();
 }
 
+void OnMouseClick(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+	{
+
+		//store the x,y value where the click happened
+		puts("LEFT button clicked");
+		float ox = x - WINDOW_SIZE / 2;
+		float oy = y - WINDOW_SIZE / 2;
+		// cout << ox * 2 << " " << oy * 2 << endl;
+		points.push_back(Vector(ox * 2, -oy * 2, 0, 1));
+	}
+}
+
 void main(int argc, char **argv) {
+
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -118,6 +208,8 @@ void main(int argc, char **argv) {
 	glutIdleFunc(idle);
 	glutDisplayFunc(DisplayHouse);
 	initCanvas();
+
+	glutMouseFunc(OnMouseClick);
 
 	glutMainLoop();
 }
