@@ -1,0 +1,6 @@
+﻿  main.cpp
+g:\programs\cpp\matrixvector\matrixvector\main.cpp(123): error C3867: 'Matrix::getMaxJ': non-standard syntax; use '&' to create a pointer to member
+g:\programs\cpp\matrixvector\matrixvector\main.cpp(123): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Matrix'
+  g:\programs\cpp\matrixvector\matrixvector\main.cpp(123): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+g:\programs\cpp\matrixvector\matrixvector\main.cpp(153): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+g:\programs\cpp\matrixvector\matrixvector\main.cpp(153): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
