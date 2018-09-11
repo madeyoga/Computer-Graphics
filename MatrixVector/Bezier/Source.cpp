@@ -57,7 +57,7 @@ void DrawTriangle(Vector v1, Vector v2, Vector v3) {
 	glEnd();
 }
 
-void DrawHalfCircle(Vector point, int radius, float bagian) {
+void DrawHalfCircle(Vector point, int radius) {
 	glPointSize(0.5); //ukuran titik/point
 
 	for (float i = -1.57; i < 1.57; i += 0.0001)
@@ -71,7 +71,7 @@ void DrawHalfCircle(Vector point, int radius, float bagian) {
 	}
 }
 
-void DrawCircle(Vector point, int radius, float bagian) {
+void DrawCircle(Vector point, int radius) {
 	glPointSize(0.5); //ukuran titik/point
 
 	for (float i = -3.14; i < 3.14; i += 0.0001)
@@ -89,7 +89,8 @@ void DrawKotak() {
 
 }
 
-Vector get_calculated_bezier_point(vector<Vector> v, float t, int size) {
+Vector get_calculated_bezier_point(vector<Vector> v, float t) {
+	int size = v.size();
 	float x = 0, y = 0;
 	for (int i = 0; i < size; i++) {
 		// x += kombinasi((float)(size - 1), (float)i) * pow((1 - t) * 1.0, (size - i - 1) * 1.0) * pow(t*1.0, i) * v[i].x;
@@ -102,11 +103,11 @@ Vector get_calculated_bezier_point(vector<Vector> v, float t, int size) {
 	return Vector(x, y, 0, 1);
 }
 
-void DrawBezier(vector<Vector> v, int size) {
+void DrawBezier(vector<Vector> v) {
 	glBegin(GL_POINTS);
 
 	for (float t = 0; t <= 1; t += 0.0001) {
-		Vector calculated_v = get_calculated_bezier_point(v, t, v.size());
+		Vector calculated_v = get_calculated_bezier_point(v, t);
 		glVertex3f(calculated_v.x, calculated_v.y, calculated_v.z);
 	}
 
@@ -128,9 +129,10 @@ void DisplayHouse() {
 	v.push_back(c1);
 	v.push_back(c2);
 	v.push_back(c3);
-	DrawHalfCircle(Vector(-550, 550, 0, 1), 200, 0.5); // DRAW 1/2 CIRCLE
-	DrawBezier(v, v.size());
+	DrawHalfCircle(Vector(-550, 550, 0, 1), 200); // DRAW 1/2 CIRCLE
+	DrawBezier(v);
 	
+
 	// LINES
 	glColor3f(0.1, 0.1, 1);
 	glBegin(GL_LINES);
@@ -139,10 +141,9 @@ void DisplayHouse() {
 		glVertex2f(points[i].x, points[i].y);
 	}
 	glEnd();
-
 	// LINES TO BEZIER
 	glColor3f(1, 1, 1);
-	DrawBezier(points, points.size());
+	DrawBezier(points);
 	// DRAW PUSHED POINTS
 	glBegin(GL_POINTS);
 	for (int i = 0; i < points.size(); i++) {
@@ -174,7 +175,7 @@ void DisplayHouse() {
 	// ATAS
 	DrawLine(Vector(-200, 50, 0, 1), Vector(0, 50, 0, 1));
 	// BULAT
-	DrawCircle(Vector(-175, -100, 0, 1), 10, 1);
+	DrawCircle(Vector(-175, -100, 0, 1), 10);
 
 	// JENDELA
 	// SISI KIRI & KANAN
