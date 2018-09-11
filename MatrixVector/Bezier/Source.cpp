@@ -130,16 +130,22 @@ void DisplayHouse() {
 	v.push_back(c3);
 	DrawHalfCircle(Vector(-550, 550, 0, 1), 200, 0.5); // DRAW 1/2 CIRCLE
 	DrawBezier(v, v.size());
-
-	// DRAW PUSHED POINTS
-	glBegin(GL_POINTS);
-	for (int i = 0; i < points.size(); i++) {
+	
+	// LINES
+	glColor3f(0.1, 0.1, 1);
+	glBegin(GL_LINES);
+	for (int i = 1; i < points.size(); i += 1) {
+		glVertex2f(points[i - 1].x, points[i - 1].y);
 		glVertex2f(points[i].x, points[i].y);
 	}
 	glEnd();
-	glBegin(GL_LINES);
-	for (int i = 1; i < points.size(); i+=1) {
-		glVertex2f(points[i-1].x, points[i-1].y); 
+
+	// LINES TO BEZIER
+	glColor3f(1, 1, 1);
+	DrawBezier(points, points.size());
+	// DRAW PUSHED POINTS
+	glBegin(GL_POINTS);
+	for (int i = 0; i < points.size(); i++) {
 		glVertex2f(points[i].x, points[i].y);
 	}
 	glEnd();
