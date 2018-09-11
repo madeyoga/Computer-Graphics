@@ -89,7 +89,7 @@ void DrawKotak() {
 
 }
 
-Vector get_calculated_berzier_point(vector<Vector> v, float t, int size) {
+Vector get_calculated_bezier_point(vector<Vector> v, float t, int size) {
 	float x = 0, y = 0;
 	for (int i = 0; i < size; i++) {
 		// x += kombinasi((float)(size - 1), (float)i) * pow((1 - t) * 1.0, (size - i - 1) * 1.0) * pow(t*1.0, i) * v[i].x;
@@ -106,7 +106,7 @@ void DrawBezier(vector<Vector> v, int size) {
 	glBegin(GL_POINTS);
 
 	for (float t = 0; t <= 1; t += 0.0001) {
-		Vector calculated_v = get_calculated_berzier_point(v, t, v.size());
+		Vector calculated_v = get_calculated_bezier_point(v, t, v.size());
 		glVertex3f(calculated_v.x, calculated_v.y, calculated_v.z);
 	}
 
@@ -118,6 +118,8 @@ void DisplayHouse() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1, 1, 1);
 	
+	// glRotatef(100, 1, 1, 1);
+
 	///// DRAW /////
 
 	// CRESCENT MOON
@@ -183,17 +185,15 @@ void DisplayHouse() {
 	glutSwapBuffers();
 }
 
-void OnMouseClick(int button, int state, int x, int y)
-{
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
-	{
-
-		//store the x,y value where the click happened
-		puts("LEFT button clicked");
+void OnMouseClick(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		float ox = x - WINDOW_SIZE / 2;
 		float oy = y - WINDOW_SIZE / 2;
-		// cout << ox * 2 << " " << oy * 2 << endl;
 		points.push_back(Vector(ox * 2, -oy * 2, 0, 1));
+	}
+
+	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+		points.clear();
 	}
 }
 
@@ -212,4 +212,5 @@ void main(int argc, char **argv) {
 	glutMouseFunc(OnMouseClick);
 
 	glutMainLoop();
+
 }
