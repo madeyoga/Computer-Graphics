@@ -157,6 +157,15 @@ void DisplayHouse() {
 
 	///// DRAW /////
 
+	// TUGAS EXCEL 
+	Vector p1(0, 1, 0, 1), p2(1, 2, 0, 1), p3(2, 2, 0, 1), p4(3, 1, 0, 1);
+	vector<Vector>excel_point;
+	excel_point.push_back(p1 * 100);
+	excel_point.push_back(p2 * 100);
+	excel_point.push_back(p3 * 100);
+	excel_point.push_back(p4 * 100);
+	DrawBezier(excel_point);
+
 	// CRESCENT MOON
 	Vector c1(-442, 718, 0, 1), c3(-496, 360, 0, 1), c2(-688, 584, 0, 1);
 	vector<Vector> v;
