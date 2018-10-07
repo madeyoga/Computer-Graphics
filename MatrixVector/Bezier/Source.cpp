@@ -1,16 +1,16 @@
 // #include "Vector.h"
-#include <iostream>
 #include <vector>
-using namespace std;
 
 #include "GL Libraries\GL\glut.h"
 #include "Vector.h"
-
+#include "Mesh.h"
 #define WINDOW_SIZE 800
 
 vector <Vector> points;
 
 vector <Vector> cloud_vector[10];
+
+Mesh mesh;
 
 float factorial(int n) {
 	if (n <= 1)
@@ -101,7 +101,22 @@ void DrawCircle(Vector point, float r_x, float r_y)
 void DrawKotak() {
 
 }
+void test() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	glRotatef(1, 1, 1, 1);
+	
+	glBegin(GL_POLYGON);
+	glPointSize(10);
+	for (int i = 0; i < mesh.out_vertices.size(); i++) {
+		
+		glVertex3f(mesh.out_vertices[i].x * 50, mesh.out_vertices[i].y * 50, mesh.out_vertices[i].z * 50);
+		
+	}
+	glEnd();
 
+	glutSwapBuffers();
+}
 Vector get_calculated_bezier_point(vector<Vector> v, float t) {
 	int size = v.size();
 	float x = 0, y = 0;
@@ -253,43 +268,39 @@ void OnMouseClick(int button, int state, int x, int y) {
 	}
 }
 
+void render(void)
+{
+	GLfloat x, y, z, angle;
+	glClear(GL_COLOR_BUFFER_BIT);
+	glPushMatrix();
+	glRotatef(10, 1.0f, 0.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glTranslatef(0.0, 0.0, -5.0);
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.0, 0.0, 0.0);
+	glVertex3f(1.0, 0.0, 0.0);
+	glVertex3f(1.0, 1.0, 0.0);
+	glVertex3f(0.5, 1.5, 0.0);
+	glVertex3f(0.0, 1.0, 0.0);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.0, 0.0, 1.0);
+	glVertex3f(1.0, 0.0, 1.0);
+	glVertex3f(1.0, 1.0, 1.0);
+	glVertex3f(0.5, 1.5, 1.0);
+	glVertex3f(0.0, 1.0, 1.0);
+	glEnd();
+
+	glPopMatrix();
+	glutSwapBuffers();
+	/* glFlush(); */
+}
+
 void main(int argc, char **argv) {
 
-	// OLD CLOUD USING BEZIER
-	// CLOUD VECTOR VALUES
-	/*Vector v1 (252, 644, 0, 1), v2 (380, 724, 0, 1), v3 (496, 648, 0, 1),
-		   v4 (496, 648, 0, 1), v5 (578, 684, 0, 1), v6 (642, 640, 0, 1),
-		   v7 (252, 646, 0, 1), v8 (128, 624, 0, 1), v9 (148, 532, 0, 1),
-		   v10(644, 638, 0, 1), v11(706, 572, 0, 1), v12(604, 512, 0, 1),
-		   v13(148, 530, 0, 1), v14(150, 476, 0, 1), v15(230, 484, 0, 1), v16(248, 507, 0, 1);
-
-	cloud_vector[0].push_back(v1);
-	cloud_vector[0].push_back(v2);
-	cloud_vector[0].push_back(v3);
-
-	cloud_vector[1].push_back(v4);
-	cloud_vector[1].push_back(v5);
-	cloud_vector[1].push_back(v6);
-
-	cloud_vector[2].push_back(v7);
-	cloud_vector[2].push_back(v8);
-	cloud_vector[2].push_back(v9);
-
-	cloud_vector[3].push_back(v10);
-	cloud_vector[3].push_back(v11);
-	cloud_vector[3].push_back(v12);
-
-	cloud_vector[4].push_back(v13);
-	cloud_vector[4].push_back(v14);
-	cloud_vector[4].push_back(v15);
-	cloud_vector[4].push_back(v16);
-	
-	cloud_vector[5].push_back(Vector(248, 508, 0, 1));
-	cloud_vector[5].push_back(Vector(300, 362, 0, 1));
-	cloud_vector[5].push_back(Vector(370, 612, 0, 1));
-	cloud_vector[5].push_back(Vector(466, 350, 0, 1));
-	cloud_vector[5].push_back(Vector(602, 514, 0, 1));*/
-
+	mesh.loadObject("kubus.txt");
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -297,7 +308,7 @@ void main(int argc, char **argv) {
 	glutCreateWindow("Bezier & Rumah");
 
 	glutIdleFunc(idle);
-	glutDisplayFunc(DisplayHouse);
+	glutDisplayFunc(test);
 	initCanvas();
 
 	glutMouseFunc(OnMouseClick);

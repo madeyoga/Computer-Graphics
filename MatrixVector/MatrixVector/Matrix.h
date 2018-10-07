@@ -109,6 +109,7 @@ public:
 	}
 
 	bool multiply(Vector v) {
+
 		int **arr2d;
 		arr2d = new int*[MATRIX_MAX_SIZE];
 

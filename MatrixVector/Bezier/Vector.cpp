@@ -23,7 +23,10 @@ Vector Vector::operator-(Vector v)
 
 Vector Vector::operator*(Vector v)
 {
-	return Vector(x * v.x, y * v.y, z * v.z, v.w /*, w * v.w*/);
+	float x = y * v.z - z * v.y;
+	float y = z * v.x - x * v.z;
+	float z = x * v.y - y * v.x;
+	return Vector(x, y, z, 1);
 }
 
 Vector Vector::operator*(int val)
@@ -34,6 +37,11 @@ Vector Vector::operator*(int val)
 Vector Vector::operator/(Vector v)
 {
 	return Vector(x / v.x, y / v.y, z / v.z, v.w /*, w / v.w*/);
+}
+
+Vector Vector::operator=(Vector &v) 
+{
+	return Vector(v.x, v.y, v.z, v.w);
 }
 
 Vector::~Vector()

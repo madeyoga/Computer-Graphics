@@ -1,5 +1,24 @@
 ﻿  Source.cpp
-g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(188): warning C4018: '<': signed/unsigned mismatch
-g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(198): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(73): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(23): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(32): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: see declaration of 'fscanf'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(40): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: see declaration of 'fscanf'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(45): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: see declaration of 'fscanf'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(50): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: see declaration of 'fscanf'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(55): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: see declaration of 'fscanf'
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\mesh.h(91): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(111): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(202): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(212): warning C4018: '<': signed/unsigned mismatch
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(273): warning C4101: 'z': unreferenced local variable
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(273): warning C4101: 'y': unreferenced local variable
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(273): warning C4101: 'x': unreferenced local variable
+g:\kuliah\semester 5\grafkom\cpp\matrixvector\bezier\source.cpp(273): warning C4101: 'angle': unreferenced local variable
   Bezier.vcxproj -> G:\Kuliah\Semester 5\GRAFKOM\cpp\MatrixVector\Debug\Bezier.exe
   Bezier.vcxproj -> G:\Kuliah\Semester 5\GRAFKOM\cpp\MatrixVector\Debug\Bezier.pdb (Full PDB)
