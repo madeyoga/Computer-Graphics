@@ -8,10 +8,7 @@
 
 #define WINDOW_SIZE 500
 
-// Quadric __bola, __elips;
 Hirearchy __solar_system[3];
-
-
 
 void idle() {
 	glutPostRedisplay();
@@ -24,7 +21,8 @@ void initCanvas() {
 	// CLEAR
 	glClearColor(0, 0, 0, 0);
 
-	float col[3] = { 255, 255, 255 };
+	float white[3] = { 255, 255, 255 };
+	float orange[3] = { 255, 128, 0 };
 
 	Matrix2 _sun_transform, _earth_transform, _moon_transform;
 	_sun_transform.translate(Vector(0, 0, 0, 1));
@@ -59,10 +57,14 @@ void test() {
 	}
 	theta += 0.01;
 
+	// glRotatef(1, 1, 1, 1);
 	__solar_system[0]._matrix_transformation2.rotate_z(theta);
+	// __solar_system[0]._matrix_transformation2.rotate(theta, 0, 0, 1);
 	__solar_system[1]._matrix_transformation2.rotate_z(theta);
 	__solar_system[2]._matrix_transformation2.rotate_z(theta);
 	
+	glColor3f(1, 0.5, 0);
+
 	 for (int i = 0; i < 3; i++) {
 		__solar_system[i].draw2(__solar_system);
 	 }
