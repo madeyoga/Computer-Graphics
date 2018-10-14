@@ -117,6 +117,7 @@ void test() {
 
 	glutSwapBuffers();
 }
+
 Vector get_calculated_bezier_point(vector<Vector> v, float t) {
 	int size = v.size();
 	float x = 0, y = 0;
@@ -308,7 +309,7 @@ void main(int argc, char **argv) {
 	glutCreateWindow("Bezier & Rumah");
 
 	glutIdleFunc(idle);
-	glutDisplayFunc(test);
+	glutDisplayFunc(render);
 	initCanvas();
 
 	glutMouseFunc(OnMouseClick);
