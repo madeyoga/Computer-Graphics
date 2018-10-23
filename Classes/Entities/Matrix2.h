@@ -1,11 +1,5 @@
 #pragma once
 
-#include "Vector.h"
-#include <fstream>
-#include <string>
-#include <iostream>
-using namespace std;
-
 class Matrix2 {
 public:
 	float _matrix[4][4];

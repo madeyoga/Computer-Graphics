@@ -1,9 +1,5 @@
 #pragma once
 
-#include "Vector.h"
-#include "GL Libraries/GL/glut.h"
-#include <iostream>
-
 #define phi 3.14159
 
 class Quadric {
@@ -25,6 +21,19 @@ public:
 			__j = 0;
 			for (float j = -phi; j <= phi; j += 2 * phi / col) {
 				__m_titik[__i][__j].set_value(r * cos(i) * cos(j), r * cos(i)*sin(j), r * sin(i));
+				__j++;
+			}
+			__i++;
+		}
+	}
+
+	void tube(int r) {
+		int __i = 0;
+		int __j = 0;
+		for (float i = -100; i <= 100; i += 200 / row) {
+			__j = 0;
+			for (float j = -phi; j <= phi; j += 2 * phi / col) {
+				__m_titik[__i][__j].set_value(r*cos(j), r*sin(j), i);
 				__j++;
 			}
 			__i++;

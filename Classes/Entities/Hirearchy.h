@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Matrix.h"
-#include "Quadric.h"
+// #include "Matrix.h"
+// #include "Quadric.h"
 
 class Hirearchy {
 	Quadric _quadric;
 	Hirearchy *__hirearchy;
-	int _index; // INDEX PARENT
+	// INDEX PARENT
+	int _index; 
 	float _color[3];
 public:
 	Matrix _matrix_transformation;   // OLD MATRIX CLASS
 	Matrix2 _matrix_transformation2;//  NEW MATRIX CLASS
-
+	
 	Hirearchy() {
 
 	}
@@ -114,7 +115,7 @@ public:
 		// glColor3f(__color[0], __color[1], __color[2]);
 
 		glBegin(GL_LINES);
-		glColor3f(0, 0.5, 1);
+		glColor3f(_color[0], _color[1], _color[2]);
 		// VERTICAL
 		for (int i = 1; i < r; i++) {
 			for (int j = 0; j < c; j++) {
@@ -123,7 +124,7 @@ public:
 			}
 		}
 
-		glColor3f(0, 1, 0.5);
+		// (0, 1, 0);
 		// HORIZONTAL
 		for (int i = 0; i < r; i++) {
 			for (int j = 1; j < c; j++) {
