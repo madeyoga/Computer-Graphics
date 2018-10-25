@@ -115,6 +115,21 @@ matrix.showMatrixOnConsole();
 // theres a bug on it, can declare only with 4 max row and 4 max cols. gonna fix it later.
 Matrix2 matrix0(4, 4);
 ```
+
+Matrix2 values is using a 2 dimensional array and its public, so, to get `Matrix2` values, use `Matrix2._matrix`
+```cpp 
+// DECLARE matrix identity 4x4
+Matrix2 dummy_matrix;
+// get matrix's value at row 0 and col 0
+dummy_matrix._matrix[0][0];
+dummy_matrix._matrix[1][0];
+.
+.
+dummy_matrix._matrix[3][3];
+// returns a 2d array with 4x4 row and col
+dummy_matrix._matrix;
+```
+
 Matrix can be multiplied by/with a matrix. In order to multiply two matrices, A and B, the number of columns in A must equal the number of rows in B. Thus, if A is an m x n matrix and B is an r x s matrix, n = r.
 ```cpp
 // this is how you multiplies a matrix.
@@ -126,4 +141,36 @@ matrix = matrix.multiplies(matrix0);
 // Matrix can also multiplied by a `Vector` and the result would be a Vector, so, `multiplies` method gonna returns a Vector object instead of Matrix2
 // still, `multiplies` method doesn't change their matrix original value, it would only returns a multiplies result.
 Vector v = matrix.multiplies(Vector(x, y, z, w));
+```
+
+### Transformation.h
+`Transformation` class provides you to get a transformation matrix value from a given `Vector`. Matrix Such as Translation, Scaling, Rotation. this class will return matrix as shown below.
+![matrix_transformation](http://opensource.petra.ac.id/~m26415172/matrix.jpg)
+### Example Declaring Object
+```cpp 
+Transformation transformation(); 
+```
+### Example Transformation Class
+```cpp
+Vector vector(50, 50, 50, 1);
+transformation.scale(vector);
+transformation.translate(vector);
+float theta = 60;
+// returns X-ROTATION 3D matrix
+transformation.rotate_x(theta);
+// returns Y-ROTATION 3D matrix
+transformation.rotate_y(theta);
+// returns Z-ROTATION 3D matrix
+transformation.rotate_z(theta);
+```
+### Example transforming a Matrix
+```cpp
+Vector vector(50, 50, 50, 1);
+Transformation transformation();
+Matrix2 matrix(); // Matrix that we want to transform
+
+Matrix2 transformation_matrix = transformation.translate(vector);
+
+// to transform a Matrix, we need to multiplies it with th transformation matrix
+matrix = matrix.multiplies( transformation_matrix );
 ```
