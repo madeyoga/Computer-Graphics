@@ -16,7 +16,7 @@ public:
 	int matrix2[4][4];
 
 	Matrix() {
-		matrix = loadMatrix(4, 4, "identity.txt");
+		// matrix = loadMatrix(4, 4, "identity.txt");
 	}
 
 	Matrix(bool identity) {
@@ -91,6 +91,18 @@ public:
 		in.close();
 
 		return _vector;
+	}
+
+	Matrix transpose() {
+		std::vector <std::vector<float>> _matrix_result;
+		for (int i = 0; i < matrix.size(); i++) {
+			std::vector <float>_temp;
+			for (int j = 0; j < matrix[i].size(); j++) {
+				_temp.push_back(matrix[j][i]);
+			}
+			_matrix_result.push_back(_temp);
+		}
+		return _matrix_result;
 	}
 
 	Matrix plus(Matrix _m) {

@@ -10,6 +10,7 @@ using namespace std;
 
 Mesh mesh;
 Transformation transform;
+Camera cam;
 
 void idle() {
 	glutPostRedisplay();
@@ -26,20 +27,42 @@ void initWorld() {
 void test() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glRotatef(1, 1, 1, 1);
+	// glRotatef(1, 1, 1, 1);
 
 	glPointSize(2);
 
-	mesh.drawMesh();
+	mesh.drawMesh(cam);
 	
 	glDisable(GL_TEXTURE_2D);
 
 	glutSwapBuffers();
 }
 
+void keyPressed(unsigned char key, int x, int y) {
+	if (key == 'w') {
+		cam.change_view_y(-6);
+	}
+	else if (key == 'a') {
+		cam.change_view_x(6);
+	}
+	else if (key == 's') {
+		cam.change_view_y(6);
+	}
+	else if (key == 'd') {
+		cam.change_view_x(-6);
+	}
+	else if (key == 'p') {
+		cam.change_view_z(-6);
+	}
+	else if (key == 'l') {
+		cam.change_view_z(6);
+	}
+}
+
 void main(int argc, char **argv) {
 
 	mesh.loadObject("teko.txt");
+
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -50,8 +73,8 @@ void main(int argc, char **argv) {
 	glutDisplayFunc(test);
 	initWorld();
 
-	// glutMouseFunc(OnMouseClick);
+	glutKeyboardFunc(keyPressed);
 
 	glutMainLoop();
-
+	
 }

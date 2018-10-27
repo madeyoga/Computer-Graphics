@@ -62,15 +62,15 @@ public:
 				}
 
 				// OLD METHODS
-				//vertex_indices.push_back(vertexIndex[0]);
-				//vertex_indices.push_back(vertexIndex[1]);
-				//vertex_indices.push_back(vertexIndex[2]);
-				//uv_indices.push_back(uvIndex[0]);
-				//uv_indices.push_back(uvIndex[1]);
-				//uv_indices.push_back(uvIndex[2]);
-				//normal_indices.push_back(normalIndex[0]);
-				//normal_indices.push_back(normalIndex[1]);
-				//normal_indices.push_back(normalIndex[2]);
+				vertex_indices.push_back(vertexIndex[0]);
+				vertex_indices.push_back(vertexIndex[1]);
+				vertex_indices.push_back(vertexIndex[2]);
+				uv_indices.push_back(uvIndex[0]);
+				uv_indices.push_back(uvIndex[1]);
+				uv_indices.push_back(uvIndex[2]);
+				normal_indices.push_back(normalIndex[0]);
+				normal_indices.push_back(normalIndex[1]);
+				normal_indices.push_back(normalIndex[2]);
 
 				Face face;
 				face.vertex_indices.push_back(vertexIndex[0]);
@@ -83,28 +83,28 @@ public:
 				face.normal_indices.push_back(normalIndex[1]);
 				face.normal_indices.push_back(normalIndex[2]);
 				faces.push_back(face);
-				// faces.push_back(Face(v1, v2, v3));
+
 			}
 		}
 
 		// OLD METHODS 
-		//for (int i = 0; i < vertex_indices.size(); i++) {
-		//	int vertex_index = vertex_indices[i];
-		//	Vector vertex = vertices[vertex_index - 1];
-		//	out_vertices.push_back(vertex);
-		//}
+		for (int i = 0; i < vertex_indices.size(); i++) {
+			int vertex_index = vertex_indices[i];
+			Vector vertex = vertices[vertex_index - 1];
+			out_vertices.push_back(vertex);
+		}
 
-		//for (int i = 0; i < uv_indices.size(); i++) {
-		//	int uv_index = uv_indices[i];
-		//	Vector uv = uvs[uv_index - 1];
-		//	out_uvs.push_back(uv);
-		//}
+		for (int i = 0; i < uv_indices.size(); i++) {
+			int uv_index = uv_indices[i];
+			Vector uv = uvs[uv_index - 1];
+			out_uvs.push_back(uv);
+		}
 
-		//for (int i = 0; i < normals.size(); i++) {
-		//	int normal_index = normal_indices[i];
-		//	Vector normal = normals[normal_index - 1];
-		//	out_normals.push_back(normal);
-		//}
+		for (int i = 0; i < normals.size(); i++) {
+			int normal_index = normal_indices[i];
+			Vector normal = normals[normal_index - 1];
+			out_normals.push_back(normal);
+		}
 		
 		return true;
 	}
@@ -115,6 +115,40 @@ public:
 			v = new Vector[faces[i].vertex_indices.size()];
 			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
 				v[j] = matrix_transform.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
+				out_vertices[faces[i].vertex_indices[j]] = v[j];
+			}
+			// delete v; error;
+
+			glBegin(GL_POLYGON);
+			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
+				glVertex3f(out_vertices[faces[i].vertex_indices[j]].x, out_vertices[faces[i].vertex_indices[j]].y, out_vertices[faces[i].vertex_indices[j]].z);
+			}
+			glEnd();
+		}
+
+		// OLD METHODS
+		//glBegin(GL_POLYGON);
+		//for (int i = 0; i < out_vertices.size(); i++) {
+		//	Vector v = matrix_transform.multiplies(out_vertices[i]);
+		//	// glVertex3f(out_vertices[i].x, out_vertices[i].y, out_vertices[i].z);
+		//	glVertex3f(v.x, v.y, v.z);
+		//}
+		//glEnd();
+
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	void drawMesh(Camera cam) {
+		for (int i = 0; i < faces.size(); i++) {
+			Vector *v;
+			v = new Vector[faces[i].vertex_indices.size()];
+			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
+
+				// v[j] = cam.__matrix_transformation.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
+
+				// scaled object 
+				v[j] = cam.__matrix_transformation.multiplies(matrix_transform).multiplies(vertices[faces[i].vertex_indices[j] - 1]);
+
 				out_vertices[faces[i].vertex_indices[j]] = v[j];
 			}
 			// delete v; error;
