@@ -146,12 +146,10 @@ Vector v = matrix.multiplies(Vector(x, y, z, w));
 ### Transformation.h
 `Transformation` class provides you to get a transformation matrix value from a given `Vector`. Matrix Such as Translation, Scaling, Rotation. this class will return matrix as shown below.
 ![matrix_transformation](http://opensource.petra.ac.id/~m26415172/matrix.jpg)
-### Example Declaring Object
+### Example Transformation.h
 ```cpp 
-Transformation transformation(); 
-```
-### Example Transformation Class
-```cpp
+Transformation transformation();
+
 Vector vector(50, 50, 50, 1);
 transformation.scale(vector);
 transformation.translate(vector);
