@@ -1,24 +1,54 @@
 #pragma once
 class RGBColor {
 public:
-	float *white() {
-		float white[3] = { 255, 255, 255 };
-		return white;
+	float r = 0;
+	float g = 0; 
+	float b = 0;
+
+	RGBColor (float _r = 255, float _g = 255, float _b = 255) {
+		r = _r;
+		g = _g;
+		b = _b;
 	}
-	float *red() {
-		float red[3] = { 255, 0, 0 };
-		return red;
+
+	void set_rgb (float _r, float _g, float _b) {
+		r = _r;
+		g = _g;
+		b = _b;
 	}
-	float *green() {
-		float green[3] = { 0, 255, 0 };
-		return green;
+
+	void set_r(float _r) {
+		r = _r;
 	}
-	float *blue() {
-		float blue[3] = { 0, 0, 255 };
-		return blue;
+
+	void set_g(float _g) {
+		g = _g;
 	}
-	float *orange() {
-		float orange[3] = { 255, 128, 0 };
-		return orange;
+
+	void set_b(float _b) {
+		b = _b;
 	}
+
+	RGBColor plus (RGBColor __color) {
+		RGBColor __result;
+		__result.r = __color.r + r;
+		__result.g = __color.g + g;
+		__result.b = __color.b + b;
+		return __result;
+	}
+
+	RGBColor multiplies (RGBColor __color) {
+		RGBColor __result;
+		__result.r = __color.r * r;
+		__result.g = __color.g * g;
+		__result.b = __color.b * b;
+		return __result;
+	}
+
+	RGBColor set (RGBColor __color) {
+		r = __color.r;
+		g = __color.g;
+		b = __color.b;
+	}
+
 };

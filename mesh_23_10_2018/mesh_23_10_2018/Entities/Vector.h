@@ -2,8 +2,6 @@
 
 class Vector
 {
-private:
-	
 public:
 
 	float x, y, z;
@@ -18,7 +16,11 @@ public:
 	Vector operator * (int val) ;
 	Vector operator / (Vector v);
 	Vector operator = (Vector &v);
+	void normalize();
 	void set_value(float x, float y, float z);
+	void set_x(float _x);
+	void set_y(float _y);
+	void set_z(float _z);
 	void showVectorOnConsole();
 
 	~Vector();
@@ -71,24 +73,31 @@ Vector Vector::operator=(Vector &v)
 	return Vector(v.x, v.y, v.z, 1);
 }
 
+void Vector::normalize() {
+
+}
+
 void Vector::set_value(float _x, float _y, float _z) {
 	x = _x;
 	y = _y;
 	z = _z;
 }
 
+void Vector::set_x(float _x) {
+	x = _x;
+}
+
+void Vector::set_y(float _y) {
+	y = _y;
+}
+
+void Vector::set_z(float _z) {
+	z = _z;
+}
+
 void Vector::showVectorOnConsole() {
 	std::cout << "(" << x << ", " << y << ", " << z << ")" << std::endl;
 }
-
-//Matrix Vector::to_matrix(Matrix _m) {
-//	Matrix __matrix_v(4, 1);
-//	__matrix_v.matrix[0][0] = x;
-//	__matrix_v.matrix[1][0] = x;
-//	__matrix_v.matrix[2][0] = x;
-//	__matrix_v.matrix[3][0] = 1;
-//	return __matrix_v;
-//}
 
 Vector::~Vector()
 {

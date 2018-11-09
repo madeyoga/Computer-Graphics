@@ -9,11 +9,12 @@ public:
 	std::vector <Vector> uvs;      //  vt
 	std::vector <Vector> normals; //   vn
 
+	// OUTPUT 
 	std::vector <Vector> out_vertices;  // v
 	std::vector <Vector> out_uvs;      //  vt
 	std::vector <Vector> out_normals; //   vn
 
-	// FACE
+	// FACES
 	std::vector <int> vertex_indices;
 	std::vector <int> uv_indices;
 	std::vector <int> normal_indices;
@@ -21,7 +22,7 @@ public:
 	Matrix2 matrix_transform;
 
 	Mesh() {
-		matrix_transform = Transformation().scale(Vector(15, 15, 15, 0));
+		matrix_transform = Transformation().translate(Vector(0, 0, 50, 1));
 	}
 
 	bool loadObject(std::string file_path) {
@@ -127,7 +128,7 @@ public:
 		}
 
 		// OLD METHODS
-		//glBegin(GL_POLYGON);
+		//glBegin(GL_LINES);
 		//for (int i = 0; i < out_vertices.size(); i++) {
 		//	Vector v = matrix_transform.multiplies(out_vertices[i]);
 		//	// glVertex3f(out_vertices[i].x, out_vertices[i].y, out_vertices[i].z);
@@ -161,7 +162,7 @@ public:
 		}
 
 		// OLD METHODS
-		//glBegin(GL_POLYGON);
+		//glBegin(GL_LINES);
 		//for (int i = 0; i < out_vertices.size(); i++) {
 		//	Vector v = matrix_transform.multiplies(out_vertices[i]);
 		//	// glVertex3f(out_vertices[i].x, out_vertices[i].y, out_vertices[i].z);

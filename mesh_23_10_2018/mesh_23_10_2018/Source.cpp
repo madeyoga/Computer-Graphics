@@ -22,6 +22,12 @@ void initWorld() {
 
 	// CLEAR
 	glClearColor(0, 0, 0, 0);
+
+	glMatrixMode(GL_PROJECTION);
+	glViewport(0, 0, WINDOW_SIZE * 2, WINDOW_SIZE * 2);
+	glLoadIdentity();
+	gluPerspective(90, 1, 0.02, 50);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void test() {
@@ -32,8 +38,6 @@ void test() {
 	glPointSize(2);
 
 	mesh.drawMesh(cam);
-	
-	glDisable(GL_TEXTURE_2D);
 
 	glutSwapBuffers();
 }
@@ -56,6 +60,15 @@ void keyPressed(unsigned char key, int x, int y) {
 	}
 	else if (key == 'l') {
 		cam.change_view_z(6);
+	}
+	else if (key == 'h') {
+		cam.rotate(Vector(1, 0, 0, 1), 8);
+	}
+	else if (key == 'j') {
+		cam.rotate(Vector(0, 1, 0, 1), 8);
+	}
+	else if (key == 'k') {
+		cam.rotate(Vector(0, 0, 1, 1), 8);
 	}
 }
 
