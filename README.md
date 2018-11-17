@@ -1,6 +1,8 @@
 # Computer-Graphics
 26416083, Computer Graphics, Using OpenGL (GLUT)
 
+Tested with `v140 platform toolset`
+
 ![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)
 
 
