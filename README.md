@@ -1,5 +1,7 @@
-# Grafika-Komputer
+# Computer-Graphics
 26416083, Computer Graphics, Using OpenGL (GLUT)
+
+Tested with `v140 platform toolset`
 
 ![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)
 
@@ -17,7 +19,7 @@
 ## Getting Started
 - Download projects `.zip` file or by using git <br>
 ```
-git clone https://github.com/MadeYoga/Grafika-Komputer.git
+git clone https://github.com/MadeYoga/Computer-Graphics.git
 ```
 
 - Copy and paste all files inside `Classes` folder into your project folder
