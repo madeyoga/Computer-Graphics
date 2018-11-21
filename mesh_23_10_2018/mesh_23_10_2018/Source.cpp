@@ -44,33 +44,39 @@ void test() {
 
 void keyPressed(unsigned char key, int x, int y) {
 	if (key == 'w') {
-		cam.change_view_y(-6);
+		cam.change_view_y(-1);
 	}
 	else if (key == 'a') {
-		cam.change_view_x(6);
+		cam.change_view_x(1);
 	}
 	else if (key == 's') {
-		cam.change_view_y(6);
+		cam.change_view_y(1);
 	}
 	else if (key == 'd') {
-		cam.change_view_x(-6);
+		cam.change_view_x(-1);
 	}
 	else if (key == 'p') {
-		cam.change_view_z(-6);
+		cam.change_view_z(-1);
 	}
 	else if (key == 'l') {
-		cam.change_view_z(6);
+		cam.change_view_z(1);
 	}
 	else if (key == 'h') {
-		cam.rotate(Vector(1, 0, 0, 1), 8);
+		cam.rotate(Vector(1, 0, 0, 1), 4);
 	}
 	else if (key == 'j') {
-		cam.rotate(Vector(0, 1, 0, 1), 8);
+		cam.rotate(Vector(0, 1, 0, 1), 4);
 	}
 	else if (key == 'k') {
-		cam.rotate(Vector(0, 0, 1, 1), 8);
+		cam.rotate(Vector(0, 0, 1, 1), 4);
 	}
 }
+
+// TEST 2
+// MESH baca file, gambar object, 
+// CAMERA
+// COLOR SHADING
+// POLYGON & OBJ FILE.
 
 void main(int argc, char **argv) {
 
