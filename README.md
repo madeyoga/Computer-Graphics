@@ -53,7 +53,6 @@ using namespace std;
 #define WINDOW_SIZE 600
 
 Mesh mesh;
-Transformation transform;
 
 void idle() {
 	glutPostRedisplay();
