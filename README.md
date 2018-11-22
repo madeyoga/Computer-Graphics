@@ -1,17 +1,11 @@
 # Computer-Graphics
-26416083, Computer Graphics, Using OpenGL (GLUT)
-
-<ul>Requirements
-	<li>
-	Visual Studio 2015 (v140 platform toolset)
-	</li>
-	<li>
-	Target Platform Version 8.1
-	</li>
-</ul>
-
 ![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)
 
+26416083, Computer Graphics, Using OpenGL (GLUT)
+
+### Requirements
+- Visual Studio 2015 (v140 platform toolset)
+- Target Platform Version 8.1
 
 ## Available Classes
 - **Vector**
