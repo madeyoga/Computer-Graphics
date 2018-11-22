@@ -26,8 +26,8 @@ public:
 
 	Mesh() {
 		matrix_transform = Transformation().translate(Vector(0, 0, 50, 1));
-		material.set_color(RGBColor(255, 255, 0));
-		light.set_light(-200, -200, 0);
+		material.set_color(RGBColor(1, 1, 0));
+		light.set_light(-50, 50, 0);
 	}
 
 	bool loadObject(std::string file_path) {
