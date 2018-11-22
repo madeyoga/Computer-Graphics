@@ -21,8 +21,13 @@ public:
 
 	Matrix2 matrix_transform;
 
+	Material material;
+	Lightning light;
+
 	Mesh() {
 		matrix_transform = Transformation().translate(Vector(0, 0, 50, 1));
+		material.set_color(RGBColor(1, 1, 0));
+		light.set_light(-50, 50, 0);
 	}
 
 	bool loadObject(std::string file_path) {
@@ -57,10 +62,11 @@ public:
 			else if (strcmp(lineHeader, "f") == 0) {
 				int vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
-				if (matches != 9) {
+				if (matches < 9) {
 					std::cout << "parser cannot read file, invalid syntax!" << std::endl;
 					return false;
 				}
+
 
 				// OLD METHODS
 				vertex_indices.push_back(vertexIndex[0]);
@@ -140,11 +146,32 @@ public:
 	}
 
 	void drawMesh(Camera cam) {
+
 		for (int i = 0; i < faces.size(); i++) {
+
+			RGBColor temp = material.get_ambient()
+				.plus(
+					material.get_diffuse(
+						vertices[faces[i].vertex_indices[0] - 1],
+						vertices[faces[i].vertex_indices[1] - 1],
+						vertices[faces[i].vertex_indices[2] - 1],
+						light
+					)
+					.plus(
+						material.get_specular(
+							vertices[faces[i].vertex_indices[0] - 1],
+							vertices[faces[i].vertex_indices[1] - 1],
+							vertices[faces[i].vertex_indices[2] - 1],
+							light,
+							cam.__current_position
+						)
+					)
+				);
+			glColor3f(temp.r, temp.g, temp.b);
+
 			Vector *v;
 			v = new Vector[faces[i].vertex_indices.size()];
 			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
-
 				// v[j] = cam.__matrix_transformation.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
 
 				// scaled object 

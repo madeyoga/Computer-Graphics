@@ -45,7 +45,15 @@ public:
 		return __result;
 	}
 
-	RGBColor set (RGBColor __color) {
+	RGBColor multiplies(float k) {
+		RGBColor __result;
+		__result.r = k * r;
+		__result.g = k * g;
+		__result.b = k * b;
+		return __result;
+	}
+
+	void set (RGBColor __color) {
 		r = __color.r;
 		g = __color.g;
 		b = __color.b;

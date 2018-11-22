@@ -16,12 +16,16 @@ public:
 	Vector operator * (int val) ;
 	Vector operator / (Vector v);
 	Vector operator = (Vector &v);
-	void normalize();
+	float operator ^ (Vector v);
+	float length();
+	Vector normalize();
 	void set_value(float x, float y, float z);
 	void set_x(float _x);
 	void set_y(float _y);
 	void set_z(float _z);
 	void showVectorOnConsole();
+	float dot_product(Vector _v);
+	Vector cross_product(Vector _v);
 
 	~Vector();
 };
@@ -73,8 +77,31 @@ Vector Vector::operator=(Vector &v)
 	return Vector(v.x, v.y, v.z, 1);
 }
 
-void Vector::normalize() {
+float Vector::operator^(Vector v) {
+	return Vector::dot_product(v);
+}
 
+float Vector::length() {
+	return pow(pow(x, 2) + pow(y, 2) + pow(z, 2), 0.5);
+}
+
+Vector Vector::normalize() {
+	float length = Vector::length();
+	Vector temp;
+	if (length != 0) {
+		temp.x = x / length;
+		temp.y = y / length;
+		temp.z = z / length;
+	}
+	return temp;
+}
+
+float Vector::dot_product(Vector _v) {
+	return (x * _v.x) + (y * _v.y) + (z * _v.z);
+}
+
+Vector Vector::cross_product(Vector _v) {
+	return _v;
 }
 
 void Vector::set_value(float _x, float _y, float _z) {
