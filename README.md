@@ -6,6 +6,7 @@
 ### Requirements
 - Visual Studio 2015 (v140 platform toolset)
 - Target Platform Version 8.1
+- #define _CRT_SECURE_NO_WARNINGS
 
 ## Available Classes
 - **Vector**
