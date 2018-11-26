@@ -15,8 +15,12 @@
 - **Transformation**
 - **Quadric**
 - **Hierarchy**
+- **RGBColor**
 - **Face**
 - **Mesh**
+- **Light**
+- **Material**
+- **Camera**
 
 ## Getting Started
 - Download projects `.zip` file or by using git <br>
