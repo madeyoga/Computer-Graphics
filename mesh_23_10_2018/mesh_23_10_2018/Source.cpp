@@ -66,10 +66,10 @@ void keyPressed(unsigned char key, int x, int y) {
 	else if (key == 'j') {
 		cam.rotate(Vector(-1, 0, 0, 1), 3);
 	}
-	else if (key == 'n') {
+	else if (key == 'q') {
 		cam.rotate(Vector(0, 1, 0, 1), 3);
 	}
-	else if (key == 'm') {
+	else if (key == 'e') {
 		cam.rotate(Vector(0, -1, 0, 1), 3);
 	}
 	else if (key == 'k') {
@@ -79,12 +79,6 @@ void keyPressed(unsigned char key, int x, int y) {
 		cam.rotate(Vector(0, 0, 1, 1), -3);
 	}
 }
-
-// TEST 2
-// MESH baca file, gambar object, 
-// CAMERA
-// COLOR SHADING
-// POLYGON & OBJ FILE.
 
 void main(int argc, char **argv) {
 

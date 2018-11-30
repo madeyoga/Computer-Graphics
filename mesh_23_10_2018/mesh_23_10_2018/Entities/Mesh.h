@@ -30,7 +30,7 @@ public:
 	Lightning light;
 
 	Mesh() {
-		matrix_transform = Transformation().scale(Vector(100, 100, 100, 1));
+		matrix_transform = Transformation().translate(Vector(0, 0, -100, 1));
 		material.set_color(RGBColor(0, 1, 0.75));
 		light.set_light(250, 350, -100);
 	}
@@ -311,7 +311,7 @@ public:
 				v[j] = vertexes[faces[i].v[j]];
 				nvektor[faces[i].v[j]] = cam.__matrix_transformation.multiplies(matrix_transform.multiplies(v[j]));
 			}
-			// delete v;
+			delete [] v;
 
 			glBegin(GL_POLYGON);
 
