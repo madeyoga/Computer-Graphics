@@ -19,15 +19,20 @@ public:
 	std::vector <int> uv_indices;
 	std::vector <int> normal_indices;
 
+	// new
+	std::vector<Vector> vertexes, nvektor;
+	std::vector<Vector> vn;
+	std::vector<Vector> vt;
+
 	Matrix2 matrix_transform;
 
 	Material material;
 	Lightning light;
 
 	Mesh() {
-		matrix_transform = Transformation().translate(Vector(0, 0, 50, 1));
-		material.set_color(RGBColor(1, 1, 0));
-		light.set_light(-50, 50, 0);
+		matrix_transform = Transformation().scale(Vector(100, 100, 100, 1));
+		material.set_color(RGBColor(0, 1, 0.75));
+		light.set_light(250, 350, -100);
 	}
 
 	bool loadObject(std::string file_path) {
@@ -116,6 +121,79 @@ public:
 		return true;
 	}
 
+	bool loadObject_(const char *filename)
+	{
+		FILE *file;
+		char *s;
+		s = new char[2];
+		float v1, v2, v3;
+		file = fopen(filename, "r");
+		if (file == NULL) 
+		{
+			std::cout << "Unable to open file " << filename << std::endl;
+			return false;
+		}
+		while (true)
+		{
+			int res = fscanf(file, "%s", s);
+			if (res == EOF)
+			{
+				break;
+				return false;
+			}
+			if (strcmp(s, "v") == 0) 
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
+				vertexes.push_back(v);
+				nvektor.push_back(v);
+
+			}
+			else if (strcmp(s, "f") == 0) 
+			{
+				int count = 0;
+				int arr[100], arr2[100], arr3[100];
+				int cek;
+				do {
+					fscanf(file, "%d/%d/%d", &arr[count], &arr2[count], &arr3[count]);
+
+					arr[count]--;
+					arr2[count]--;
+					arr3[count]--;
+					cek = fgetc(file);
+					count++;
+				} while (cek != 10 && cek != -1);
+				Face face(count);
+				face.LoadFace(arr, arr2, arr3);
+				faces.push_back(face);
+
+			}
+			else if (strcmp(s, "vn") == 0) 
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1, v2, v3, 1);
+				vn.push_back(v);
+
+			}
+			else if (strcmp(s, "vt") == 0) 
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1, v2, v3, 1);
+				vt.push_back(v);
+
+			}
+			else if (strcmp(s, "s") == 0) 
+			{
+				int s_;
+				fscanf(file, "%d", &s_);
+
+			}
+		}
+		fclose(file);
+		
+		return true;
+	}
+
 	void drawMesh() {
 		for (int i = 0; i < faces.size(); i++) {
 			Vector *v;
@@ -145,7 +223,8 @@ public:
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	void drawMesh(Camera cam) {
+	void drawMesh(Camera cam) 
+	{
 
 		for (int i = 0; i < faces.size(); i++) {
 
@@ -200,11 +279,49 @@ public:
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	void print_vertrices() {
-		for (int i = 0; i < out_vertices.size(); i++) {
-			std::cout << out_vertices[i].x << " "
-				<< out_vertices[i].y << " "
-				<< out_vertices[i].z << std::endl;
+	void drawMesh_(Camera cam)
+	{
+		for (int i = 0; i < faces.size(); i++)
+		{
+			glPointSize(1);
+			RGBColor temp;
+			temp = material.get_ambient()
+			.plus(
+				material.get_diffuse(
+					nvektor[faces[i].v[0]], 
+					nvektor[faces[i].v[1]], 
+					nvektor[faces[i].v[2]], 
+					light
+				)
+			).plus(
+				material.get_specular(
+					nvektor[faces[i].v[0]], 
+					nvektor[faces[i].v[1]], 
+					nvektor[faces[i].v[2]],
+					light, 
+					cam.__current_position
+				)
+			);
+			glColor3f(temp.r, temp.g, temp.b);
+
+			Vector *v;
+			v = new Vector[faces[i].length];
+			for (int j = 0; j < faces[i].length; j++)
+			{
+				v[j] = vertexes[faces[i].v[j]];
+				nvektor[faces[i].v[j]] = cam.__matrix_transformation.multiplies(matrix_transform.multiplies(v[j]));
+			}
+			// delete v;
+
+			glBegin(GL_POLYGON);
+
+			for (int j = 0; j < faces[i].length; j++)
+			{
+				glVertex3f(nvektor[faces[i].v[j]].x, nvektor[faces[i].v[j]].y, nvektor[faces[i].v[j]].z);
+			}
+			glDisable(GL_TEXTURE_2D);
+
+			glEnd();
 		}
 	}
 

@@ -33,42 +33,50 @@ void initWorld() {
 void test() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// glRotatef(1, 1, 1, 1);
-
 	glPointSize(2);
 
-	mesh.drawMesh(cam);
+	//mesh.drawMesh(cam);
+	mesh.drawMesh_(cam);
 
 	glutSwapBuffers();
 }
 
 void keyPressed(unsigned char key, int x, int y) {
-	if (key == 'w') {
-		cam.change_view_y(-1);
+	if (key == 'p') {
+		cam.change_view_y(-10);
 	}
 	else if (key == 'a') {
-		cam.change_view_x(1);
-	}
-	else if (key == 's') {
-		cam.change_view_y(1);
-	}
-	else if (key == 'd') {
-		cam.change_view_x(-1);
-	}
-	else if (key == 'p') {
-		cam.change_view_z(-1);
+		cam.change_view_x(10);
 	}
 	else if (key == 'l') {
-		cam.change_view_z(1);
+		cam.change_view_y(10);
+	}
+	else if (key == 'd') {
+		cam.change_view_x(-10);
+	}
+	else if (key == 'w') {
+		cam.change_view_z(-10);
+	}
+	else if (key == 's') {
+		cam.change_view_z(10);
 	}
 	else if (key == 'h') {
-		cam.rotate(Vector(1, 0, 0, 1), 4);
+		cam.rotate(Vector(1, 0, 0, 1), 3);
 	}
 	else if (key == 'j') {
-		cam.rotate(Vector(0, 1, 0, 1), 4);
+		cam.rotate(Vector(-1, 0, 0, 1), 3);
+	}
+	else if (key == 'n') {
+		cam.rotate(Vector(0, 1, 0, 1), 3);
+	}
+	else if (key == 'm') {
+		cam.rotate(Vector(0, -1, 0, 1), 3);
 	}
 	else if (key == 'k') {
-		cam.rotate(Vector(0, 0, 1, 1), 4);
+		cam.rotate(Vector(0, 0, 1, 1), 3);
+	}
+	else if (key == 'i') {
+		cam.rotate(Vector(0, 0, 1, 1), -3);
 	}
 }
 
@@ -80,8 +88,8 @@ void keyPressed(unsigned char key, int x, int y) {
 
 void main(int argc, char **argv) {
 
-	mesh.loadObject("teko.txt");
-
+	// mesh.loadObject("teko.txt");
+	mesh.loadObject_("teko.txt");
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
