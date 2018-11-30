@@ -6,6 +6,7 @@
 ### Requirements
 - Visual Studio 2015 (v140 platform toolset)
 - Target Platform Version 8.1
+- #define _CRT_SECURE_NO_WARNINGS
 
 ## Available Classes
 - **Vector**
@@ -14,8 +15,12 @@
 - **Transformation**
 - **Quadric**
 - **Hierarchy**
+- **RGBColor**
 - **Face**
 - **Mesh**
+- **Light**
+- **Material**
+- **Camera**
 
 ## Getting Started
 - Download projects `.zip` file or by using git <br>
