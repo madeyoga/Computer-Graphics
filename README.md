@@ -3,6 +3,8 @@
 
 26416083, Computer Graphics, Using OpenGL (GLUT)
 
+![ivy](https://i.imgur.com/dCVklGL.png)
+
 ### Requirements
 - Visual Studio 2015 (v140 platform toolset)
 - Target Platform Version 8.1
