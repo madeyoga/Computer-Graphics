@@ -49,8 +49,8 @@ public:
 	) 
 	{
 		Vector v1 = a - b, v2 = c - b, l, n;
-		l = (b - L.__position).normalize();
-		n = (v1 * (v2)).normalize();
+		l = (b - L.__position).normalize(); // LIGHT POST // b - l / l - b //
+		n = (v1.cross_product(v2)).normalize();
 
 		float pl = abs(n.dot_product(l)); // ^ dot, * cross
 
