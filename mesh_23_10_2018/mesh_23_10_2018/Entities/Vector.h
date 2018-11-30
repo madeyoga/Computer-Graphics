@@ -92,6 +92,11 @@ Vector Vector::normalize() {
 		temp.x = x / length;
 		temp.y = y / length;
 		temp.z = z / length;
+	} 
+	else {
+		temp.x = 0;
+		temp.y = 0;
+		temp.z = 0;
 	}
 	return temp;
 }
@@ -101,7 +106,7 @@ float Vector::dot_product(Vector _v) {
 }
 
 Vector Vector::cross_product(Vector _v) {
-	return _v;
+	return Vector((y * _v.z) - (z * _v.y), ((z * _v.x) - (x * _v.z)), ((x * _v.y) - (y * _v.z)), 1);
 }
 
 void Vector::set_value(float _x, float _y, float _z) {
