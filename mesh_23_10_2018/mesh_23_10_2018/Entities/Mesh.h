@@ -139,7 +139,6 @@ public:
 			if (res == EOF)
 			{
 				break;
-				return false;
 			}
 			if (strcmp(s, "v") == 0) 
 			{
@@ -191,6 +190,78 @@ public:
 		}
 		fclose(file);
 		
+		return true;
+	}
+
+	bool loadObject_house()
+	{
+		FILE *file;
+		char *s;
+		s = new char[2];
+		float v1, v2, v3;
+		file = fopen("house.obj", "r");
+		if (file == NULL)
+		{
+			std::cout << "Unable to open file house.obj" << std::endl;
+			return false;
+		}
+		while (true)
+		{
+			int res = fscanf(file, "%s", s);
+			if (res == EOF)
+			{
+				break;
+			}
+			if (strcmp(s, "v") == 0)
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
+				vertexes.push_back(v);
+				nvektor.push_back(v);
+
+			}
+			else if (strcmp(s, "f") == 0)
+			{
+				int count = 0;
+				int arr[100], arr2[100], arr3[100];
+				int cek;
+				do {
+					fscanf(file, "%d/%d/%d", &arr[count], &arr2[count], &arr3[count]);
+
+					arr[count]--;
+					arr2[count]--;
+					arr3[count]--;
+					cek = fgetc(file);
+					count++;
+				} while (cek != 10 && cek != -1);
+				Face face(count);
+				face.LoadFace(arr, arr2, arr3);
+				faces.push_back(face);
+
+			}
+			else if (strcmp(s, "vn") == 0)
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1, v2, v3, 1);
+				vn.push_back(v);
+
+			}
+			else if (strcmp(s, "vt") == 0)
+			{
+				fscanf(file, "%f %f %f", &v1, &v2, &v3);
+				Vector v(v1, v2, v3, 1);
+				vt.push_back(v);
+
+			}
+			else if (strcmp(s, "s") == 0)
+			{
+				int s_;
+				fscanf(file, "%d", &s_);
+
+			}
+		}
+		fclose(file);
+
 		return true;
 	}
 

@@ -35,8 +35,8 @@ void test() {
 
 	glPointSize(2);
 
-	//mesh.drawMesh(cam);
-	mesh.drawMesh_(cam);
+	mesh.drawMesh(cam);
+	// mesh.drawMesh_(cam);
 
 	glutSwapBuffers();
 }
@@ -83,7 +83,7 @@ void keyPressed(unsigned char key, int x, int y) {
 void main(int argc, char **argv) {
 
 	// mesh.loadObject("teko.txt");
-	mesh.loadObject_("teko.txt");
+	mesh.loadObject("house.obj");
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
