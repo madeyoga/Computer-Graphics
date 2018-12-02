@@ -4,6 +4,7 @@
 26416083, Computer Graphics, Using OpenGL (GLUT)
 
 ![ivy](https://i.imgur.com/dCVklGL.png)
+![c_h](https://i.imgur.com/lCXzK2L.png)
 
 ### Requirements
 - Visual Studio 2015 (v140 platform toolset)
