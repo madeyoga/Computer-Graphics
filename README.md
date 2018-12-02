@@ -3,7 +3,7 @@
 
 26416083, Computer Graphics, Using OpenGL (GLUT)
 
-![ivy](https://i.imgur.com/dCVklGL.png)
+![ivy](https://i.imgur.com/aKuzEVH.png)
 ![c_h](https://i.imgur.com/lCXzK2L.png)
 
 ### Requirements
