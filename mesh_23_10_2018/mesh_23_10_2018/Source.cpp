@@ -1,5 +1,4 @@
 #include <fstream>
-
 #include <iostream>
 using namespace std;
 
@@ -83,7 +82,7 @@ void keyPressed(unsigned char key, int x, int y) {
 void main(int argc, char **argv) {
 
 	// mesh.loadObject("teko.txt");
-	mesh.loadObject("house.obj");
+	mesh.loadObject2("aventador.obj");
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);

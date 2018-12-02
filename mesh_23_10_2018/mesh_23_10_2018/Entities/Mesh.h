@@ -30,9 +30,9 @@ public:
 	Lightning light;
 
 	Mesh() {
-		matrix_transform = Transformation().translate(Vector(0, 0, -100, 1));
+		matrix_transform = Transformation().translate(Vector(20, 20, 20, 1));
 		material.set_color(RGBColor(0, 1, 0.75));
-		light.set_light(250, 350, -100);
+		light.set_light(100, 100, -100);
 	}
 
 	bool loadObject(std::string file_path) {
@@ -106,18 +106,141 @@ public:
 			out_vertices.push_back(vertex);
 		}
 
-		for (int i = 0; i < uv_indices.size(); i++) {
-			int uv_index = uv_indices[i];
-			Vector uv = uvs[uv_index - 1];
-			out_uvs.push_back(uv);
+		//for (int i = 0; i < uv_indices.size(); i++) {
+		//	int uv_index = uv_indices[i];
+		//	Vector uv = uvs[uv_index - 1];
+		//	out_uvs.push_back(uv);
+		//}
+
+		//for (int i = 0; i < normals.size(); i++) {
+		//	int normal_index = normal_indices[i];
+		//	Vector normal = normals[normal_index - 1];
+		//	out_normals.push_back(normal);
+		//}
+		
+		return true;
+	}
+
+	bool loadObject2(std::string file_path) {
+
+		FILE *file = fopen(file_path.c_str()/*converts to const char* */, "r");
+		//ifstream infile(file_path);
+		if (file == NULL) {
+			std::cout << "Unable to open file " << file_path << std::endl;
+			return false;
+		}
+		int line = 1;
+		while (true) {
+			char lineHeader[128];
+			int res = fscanf(file, "%s", lineHeader);
+			if (res == EOF) {
+				break;
+			}
+			//string line;
+			//getline(infile, line);
+			if (strcmp(lineHeader, "v") == 0) {
+				Vector vertex;
+				fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+				vertices.push_back(vertex);
+			}
+			else if (strcmp(lineHeader, "vt") == 0) {
+				Vector uv;
+				fscanf(file, "%f %f\n", &uv.x, &uv.y);
+				uvs.push_back(uv);
+			}
+			else if (strcmp(lineHeader, "vn") == 0) {
+				Vector normal;
+				fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
+				normals.push_back(normal);
+			}
+			else if (strcmp(lineHeader, "f") == 0) 
+			{
+				int vertexIndex[4], uvIndex[4], normalIndex[4];
+				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2], &vertexIndex[3], &uvIndex[3], &normalIndex[3]);
+				if (matches < 12)
+				{
+					vertex_indices.push_back(vertexIndex[0]);
+					vertex_indices.push_back(vertexIndex[1]);
+					vertex_indices.push_back(vertexIndex[2]);
+					vertex_indices.push_back(vertexIndex[3]);
+					uv_indices.push_back(uvIndex[0]);
+					uv_indices.push_back(uvIndex[1]);
+					uv_indices.push_back(uvIndex[2]);
+					uv_indices.push_back(uvIndex[3]);
+					normal_indices.push_back(normalIndex[0]);
+					normal_indices.push_back(normalIndex[1]);
+					normal_indices.push_back(normalIndex[2]);
+					normal_indices.push_back(normalIndex[3]);
+
+					Face face;
+					face.vertex_indices.push_back(vertexIndex[0]);
+					face.vertex_indices.push_back(vertexIndex[1]);
+					face.vertex_indices.push_back(vertexIndex[2]);
+					face.vertex_indices.push_back(vertexIndex[3]);
+					face.uv_indices.push_back(uvIndex[0]);
+					face.uv_indices.push_back(uvIndex[1]);
+					face.uv_indices.push_back(uvIndex[2]);
+					face.uv_indices.push_back(uvIndex[3]);
+					face.normal_indices.push_back(normalIndex[0]);
+					face.normal_indices.push_back(normalIndex[1]);
+					face.normal_indices.push_back(normalIndex[2]);
+					face.normal_indices.push_back(normalIndex[3]);
+					faces.push_back(face);
+					fscanf(file, "\n");
+					continue;
+				}
+				// OLD METHODS
+				//cout << matches << endl;
+				vertex_indices.push_back(vertexIndex[0]);
+				vertex_indices.push_back(vertexIndex[1]);
+				vertex_indices.push_back(vertexIndex[2]);
+				vertex_indices.push_back(vertexIndex[3]);
+				uv_indices.push_back(uvIndex[0]);
+				uv_indices.push_back(uvIndex[1]);
+				uv_indices.push_back(uvIndex[2]);
+				uv_indices.push_back(uvIndex[3]);
+				normal_indices.push_back(normalIndex[0]);
+				normal_indices.push_back(normalIndex[1]);
+				normal_indices.push_back(normalIndex[2]);
+				normal_indices.push_back(normalIndex[3]);
+
+				Face face;
+				face.vertex_indices.push_back(vertexIndex[0]);
+				face.vertex_indices.push_back(vertexIndex[1]);
+				face.vertex_indices.push_back(vertexIndex[2]);
+				face.vertex_indices.push_back(vertexIndex[3]);
+				face.uv_indices.push_back(uvIndex[0]);
+				face.uv_indices.push_back(uvIndex[1]);
+				face.uv_indices.push_back(uvIndex[2]);
+				face.uv_indices.push_back(uvIndex[3]);
+				face.normal_indices.push_back(normalIndex[0]);
+				face.normal_indices.push_back(normalIndex[1]);
+				face.normal_indices.push_back(normalIndex[2]);
+				face.normal_indices.push_back(normalIndex[3]);
+				faces.push_back(face);
+
+			}
 		}
 
-		for (int i = 0; i < normals.size(); i++) {
-			int normal_index = normal_indices[i];
-			Vector normal = normals[normal_index - 1];
-			out_normals.push_back(normal);
+		// OLD METHODS 
+		for (int i = 0; i < vertex_indices.size(); i++) {
+			int vertex_index = vertex_indices[i];
+			Vector vertex = vertices[vertex_index - 1];
+			out_vertices.push_back(vertex);
 		}
-		
+
+		//for (int i = 0; i < uv_indices.size(); i++) {
+		//	int uv_index = uv_indices[i];
+		//	Vector uv = uvs[uv_index - 1];
+		//	out_uvs.push_back(uv);
+		//}
+
+		//for (int i = 0; i < normals.size(); i++) {
+		//	int normal_index = normal_indices[i];
+		//	Vector normal = normals[normal_index - 1];
+		//	out_normals.push_back(normal);
+		//}
+
 		return true;
 	}
 
@@ -133,135 +256,65 @@ public:
 			std::cout << "Unable to open file " << filename << std::endl;
 			return false;
 		}
-		while (true)
-		{
-			int res = fscanf(file, "%s", s);
-			if (res == EOF)
+		try {
+			while (!feof(file))
 			{
-				break;
-			}
-			if (strcmp(s, "v") == 0) 
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
-				vertexes.push_back(v);
-				nvektor.push_back(v);
+				fscanf(file, "%s", s);
+				if (strcmp(s, "v") == 0)
+				{
+					fscanf(file, "%f %f %f", &v1, &v2, &v3);
+					Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
+					vertexes.push_back(v);
+					nvektor.push_back(v);
 
-			}
-			else if (strcmp(s, "f") == 0) 
-			{
-				int count = 0;
-				int arr[100], arr2[100], arr3[100];
-				int cek;
-				do {
-					fscanf(file, "%d/%d/%d", &arr[count], &arr2[count], &arr3[count]);
+				}
+				else if (strcmp(s, "f") == 0)
+				{
+					int count = 0;
+					int arr[100], arr2[100], arr3[100];
+					int cek;
+					do {
+						fscanf(file, "%d/%d/%d", &arr[count], &arr2[count], &arr3[count]);
 
-					arr[count]--;
-					arr2[count]--;
-					arr3[count]--;
-					cek = fgetc(file);
-					count++;
-				} while (cek != 10 && cek != -1);
-				Face face(count);
-				face.LoadFace(arr, arr2, arr3);
-				faces.push_back(face);
+						arr[count]--;
+						arr2[count]--;
+						arr3[count]--;
+						cek = fgetc(file);
+						count++;
+					} while (cek != 10 && cek != -1);
+					Face face(count);
+					face.LoadFace(arr, arr2, arr3);
+					faces.push_back(face);
 
-			}
-			else if (strcmp(s, "vn") == 0) 
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1, v2, v3, 1);
-				vn.push_back(v);
+				}
+				else if (strcmp(s, "vn") == 0)
+				{
+					fscanf(file, "%f %f %f", &v1, &v2, &v3);
+					Vector v(v1, v2, v3, 1);
+					vn.push_back(v);
 
-			}
-			else if (strcmp(s, "vt") == 0) 
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1, v2, v3, 1);
-				vt.push_back(v);
+				}
+				else if (strcmp(s, "vt") == 0)
+				{
+					fscanf(file, "%f %f %f", &v1, &v2, &v3);
+					Vector v(v1, v2, v3, 1);
+					vt.push_back(v);
 
-			}
-			else if (strcmp(s, "s") == 0) 
-			{
-				int s_;
-				fscanf(file, "%d", &s_);
+				}
+				else if (strcmp(s, "s") == 0)
+				{
+					int s_;
+					fscanf(file, "%d", &s_);
 
+				}
 			}
 		}
+		catch (exception e) {
+			cout << e.what() << endl;
+		}
+		delete s;
 		fclose(file);
 		
-		return true;
-	}
-
-	bool loadObject_house()
-	{
-		FILE *file;
-		char *s;
-		s = new char[2];
-		float v1, v2, v3;
-		file = fopen("house.obj", "r");
-		if (file == NULL)
-		{
-			std::cout << "Unable to open file house.obj" << std::endl;
-			return false;
-		}
-		while (true)
-		{
-			int res = fscanf(file, "%s", s);
-			if (res == EOF)
-			{
-				break;
-			}
-			if (strcmp(s, "v") == 0)
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
-				vertexes.push_back(v);
-				nvektor.push_back(v);
-
-			}
-			else if (strcmp(s, "f") == 0)
-			{
-				int count = 0;
-				int arr[100], arr2[100], arr3[100];
-				int cek;
-				do {
-					fscanf(file, "%d/%d/%d", &arr[count], &arr2[count], &arr3[count]);
-
-					arr[count]--;
-					arr2[count]--;
-					arr3[count]--;
-					cek = fgetc(file);
-					count++;
-				} while (cek != 10 && cek != -1);
-				Face face(count);
-				face.LoadFace(arr, arr2, arr3);
-				faces.push_back(face);
-
-			}
-			else if (strcmp(s, "vn") == 0)
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1, v2, v3, 1);
-				vn.push_back(v);
-
-			}
-			else if (strcmp(s, "vt") == 0)
-			{
-				fscanf(file, "%f %f %f", &v1, &v2, &v3);
-				Vector v(v1, v2, v3, 1);
-				vt.push_back(v);
-
-			}
-			else if (strcmp(s, "s") == 0)
-			{
-				int s_;
-				fscanf(file, "%d", &s_);
-
-			}
-		}
-		fclose(file);
-
 		return true;
 	}
 
@@ -296,7 +349,7 @@ public:
 
 	void drawMesh(Camera cam) 
 	{
-
+		Matrix2 m = cam.__matrix_transformation.multiplies(matrix_transform);
 		for (int i = 0; i < faces.size(); i++) {
 
 			RGBColor temp = material.get_ambient()
@@ -321,21 +374,15 @@ public:
 
 			Vector *v;
 			v = new Vector[faces[i].vertex_indices.size()];
+			glBegin(GL_LINES);
 			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
-				// v[j] = cam.__matrix_transformation.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
-
-				// scaled object 
-				v[j] = cam.__matrix_transformation.multiplies(matrix_transform).multiplies(vertices[faces[i].vertex_indices[j] - 1]);
-
-				out_vertices[faces[i].vertex_indices[j]] = v[j];
-			}
-			// delete v; error;
-
-			glBegin(GL_POLYGON);
-			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
-				glVertex3f(out_vertices[faces[i].vertex_indices[j]].x, out_vertices[faces[i].vertex_indices[j]].y, out_vertices[faces[i].vertex_indices[j]].z);
+				v[j] = m.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
+				glVertex3f(v[j].x, v[j].y, v[j].z);
+				// out_vertices[faces[i].vertex_indices[j]] = v[j];
 			}
 			glEnd();
+			delete [] v;
+
 		}
 
 		// OLD METHODS
