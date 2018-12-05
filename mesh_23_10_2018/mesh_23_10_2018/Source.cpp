@@ -82,7 +82,7 @@ void keyPressed(unsigned char key, int x, int y) {
 void main(int argc, char **argv) {
 
 	// mesh.loadObject("teko.txt");
-	mesh.loadObject2("aventador.obj");
+	mesh.loadObject_square("tree_h.obj");
 	// INIT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);

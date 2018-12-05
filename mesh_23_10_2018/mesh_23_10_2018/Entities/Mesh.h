@@ -35,7 +35,7 @@ public:
 		light.set_light(100, 100, -100);
 	}
 
-	bool loadObject(std::string file_path) {
+	bool loadObject_poly(std::string file_path) {
 
 		FILE *file = fopen(file_path.c_str()/*converts to const char* */, "r");
 		if (file == NULL) {
@@ -121,7 +121,7 @@ public:
 		return true;
 	}
 
-	bool loadObject2(std::string file_path) {
+	bool loadObject_square(std::string file_path) {
 
 		FILE *file = fopen(file_path.c_str()/*converts to const char* */, "r");
 		//ifstream infile(file_path);
@@ -374,7 +374,7 @@ public:
 
 			Vector *v;
 			v = new Vector[faces[i].vertex_indices.size()];
-			glBegin(GL_LINES);
+			glBegin(GL_POLYGON);
 			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
 				v[j] = m.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
 				glVertex3f(v[j].x, v[j].y, v[j].z);
