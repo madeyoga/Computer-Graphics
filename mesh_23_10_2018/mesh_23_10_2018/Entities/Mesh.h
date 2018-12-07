@@ -36,7 +36,6 @@ public:
 	}
 
 	bool loadObject_poly(std::string file_path) {
-
 		FILE *file = fopen(file_path.c_str()/*converts to const char* */, "r");
 		if (file == NULL) {
 			std::cout << "Unable to open file " << file_path << std::endl;
@@ -95,7 +94,6 @@ public:
 				face.normal_indices.push_back(normalIndex[1]);
 				face.normal_indices.push_back(normalIndex[2]);
 				faces.push_back(face);
-
 			}
 		}
 
@@ -122,7 +120,6 @@ public:
 	}
 
 	bool loadObject_square(std::string file_path) {
-
 		FILE *file = fopen(file_path.c_str()/*converts to const char* */, "r");
 		//ifstream infile(file_path);
 		if (file == NULL) {
@@ -162,29 +159,29 @@ public:
 					vertex_indices.push_back(vertexIndex[0]);
 					vertex_indices.push_back(vertexIndex[1]);
 					vertex_indices.push_back(vertexIndex[2]);
-					vertex_indices.push_back(vertexIndex[3]);
+					//vertex_indices.push_back(vertexIndex[3]);
 					uv_indices.push_back(uvIndex[0]);
 					uv_indices.push_back(uvIndex[1]);
 					uv_indices.push_back(uvIndex[2]);
-					uv_indices.push_back(uvIndex[3]);
+					//uv_indices.push_back(uvIndex[3]);
 					normal_indices.push_back(normalIndex[0]);
 					normal_indices.push_back(normalIndex[1]);
 					normal_indices.push_back(normalIndex[2]);
-					normal_indices.push_back(normalIndex[3]);
+					//normal_indices.push_back(normalIndex[3]);
 
 					Face face;
 					face.vertex_indices.push_back(vertexIndex[0]);
 					face.vertex_indices.push_back(vertexIndex[1]);
 					face.vertex_indices.push_back(vertexIndex[2]);
-					face.vertex_indices.push_back(vertexIndex[3]);
+					//face.vertex_indices.push_back(vertexIndex[3]);
 					face.uv_indices.push_back(uvIndex[0]);
 					face.uv_indices.push_back(uvIndex[1]);
 					face.uv_indices.push_back(uvIndex[2]);
-					face.uv_indices.push_back(uvIndex[3]);
+					//face.uv_indices.push_back(uvIndex[3]);
 					face.normal_indices.push_back(normalIndex[0]);
 					face.normal_indices.push_back(normalIndex[1]);
 					face.normal_indices.push_back(normalIndex[2]);
-					face.normal_indices.push_back(normalIndex[3]);
+					//face.normal_indices.push_back(normalIndex[3]);
 					faces.push_back(face);
 					fscanf(file, "\n");
 					continue;
@@ -218,7 +215,6 @@ public:
 				face.normal_indices.push_back(normalIndex[2]);
 				face.normal_indices.push_back(normalIndex[3]);
 				faces.push_back(face);
-
 			}
 		}
 
@@ -266,7 +262,6 @@ public:
 					Vector v(v1 * 25, v2 * 25, v3 * 25, 1);
 					vertexes.push_back(v);
 					nvektor.push_back(v);
-
 				}
 				else if (strcmp(s, "f") == 0)
 				{
@@ -285,27 +280,23 @@ public:
 					Face face(count);
 					face.LoadFace(arr, arr2, arr3);
 					faces.push_back(face);
-
 				}
 				else if (strcmp(s, "vn") == 0)
 				{
 					fscanf(file, "%f %f %f", &v1, &v2, &v3);
 					Vector v(v1, v2, v3, 1);
 					vn.push_back(v);
-
 				}
 				else if (strcmp(s, "vt") == 0)
 				{
 					fscanf(file, "%f %f %f", &v1, &v2, &v3);
 					Vector v(v1, v2, v3, 1);
 					vt.push_back(v);
-
 				}
 				else if (strcmp(s, "s") == 0)
 				{
 					int s_;
 					fscanf(file, "%d", &s_);
-
 				}
 			}
 		}
@@ -351,7 +342,6 @@ public:
 	{
 		Matrix2 m = cam.__matrix_transformation.multiplies(matrix_transform);
 		for (int i = 0; i < faces.size(); i++) {
-
 			RGBColor temp = material.get_ambient()
 				.plus(
 					material.get_diffuse(
@@ -374,6 +364,7 @@ public:
 
 			Vector *v;
 			v = new Vector[faces[i].vertex_indices.size()];
+
 			glBegin(GL_POLYGON);
 			for (int j = 0; j < faces[i].vertex_indices.size(); j++) {
 				v[j] = m.multiplies(vertices[faces[i].vertex_indices[j] - 1]);
@@ -381,10 +372,11 @@ public:
 				// out_vertices[faces[i].vertex_indices[j]] = v[j];
 			}
 			glEnd();
+
 			delete [] v;
 
-		}
 
+		}
 		// OLD METHODS
 		//glBegin(GL_LINES);
 		//for (int i = 0; i < out_vertices.size(); i++) {
@@ -393,7 +385,6 @@ public:
 		//	glVertex3f(v.x, v.y, v.z);
 		//}
 		//glEnd();
-
 		glDisable(GL_TEXTURE_2D);
 	}
 
@@ -421,7 +412,6 @@ public:
 				)
 			);
 			glColor3f(temp.r, temp.g, temp.b);
-
 			Vector *v;
 			v = new Vector[faces[i].length];
 			for (int j = 0; j < faces[i].length; j++)
@@ -432,7 +422,6 @@ public:
 			delete [] v;
 
 			glBegin(GL_POLYGON);
-
 			for (int j = 0; j < faces[i].length; j++)
 			{
 				glVertex3f(nvektor[faces[i].v[j]].x, nvektor[faces[i].v[j]].y, nvektor[faces[i].v[j]].z);
