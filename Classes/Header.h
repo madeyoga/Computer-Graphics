@@ -17,3 +17,5 @@
 
 #include "Entities\Face.h"
 #include "Entities\Mesh.h"
+
+#include "Entities\World.h"

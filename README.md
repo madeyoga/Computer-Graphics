@@ -3,6 +3,7 @@
 
 26416083, Computer Graphics, Using OpenGL (GLUT)
 
+![itr](https://i.imgur.com/c2atLio.png)
 ![avt](https://i.imgur.com/D3HNnhn.png)
 ![ivy](https://i.imgur.com/aKuzEVH.png)
 ![c_h](https://i.imgur.com/lCXzK2L.png)
@@ -14,8 +15,8 @@
 
 ## Available Classes
 - **Vector**
-- **Matrix**<br>
-  replaced with **Matrix2** (07 Oct, 2018)
+- **Matrix** deprecated
+- **Matrix2** (07 Oct, 2018)
 - **Transformation**
 - **Quadric**
 - **Hierarchy**
@@ -32,7 +33,7 @@
 git clone https://github.com/MadeYoga/Computer-Graphics.git
 ```
 
-- Copy and paste all files inside `Classes` folder into your project folder
+- Copy all files inside `Classes` folder and paste it to your project folder
 
 - include these lines of code into your main.cpp file project<br>
   
@@ -61,7 +62,9 @@ using namespace std;
 
 #define WINDOW_SIZE 600
 
-Mesh mesh;
+// Define World and Camera(Eye)
+World world;
+Camera cam;
 
 void idle() {
 	glutPostRedisplay();
@@ -70,6 +73,15 @@ void idle() {
 void initWorld() {
 	glOrtho(-WINDOW_SIZE, WINDOW_SIZE, -WINDOW_SIZE, WINDOW_SIZE, -WINDOW_SIZE, WINDOW_SIZE);
 	glClearColor(0, 0, 0, 0);
+
+	// Define Objects
+	Mesh teapot_mesh, cube_mesh;
+	// load .obj file
+	teapot_mesh.loadObject_square("teko.txt");
+	cube_mesh.loadObject_square("kubus.txt");
+	// add Objects to world
+	world.add_mesh(teapot_mesh);
+	world.add_mesh(cube_mesh)
 }
 
 void test() {
@@ -77,16 +89,14 @@ void test() {
 	glRotatef(1, 1, 1, 1);
 	glPointSize(2);
   
-	mesh.drawMesh();
-  
+  	/*~magics happens here~*/
+	world.draw(cam);
+  	
 	glDisable(GL_TEXTURE_2D);
 	glutSwapBuffers();
 }
 
 void main(int argc, char **argv) {
-  // kubus means cube & teko means teapot
-  // load Model
-	mesh.loadObject("kubus.txt");
 
 	// INIT
 	glutInit(&argc, argv);

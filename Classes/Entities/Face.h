@@ -1,13 +1,15 @@
 #pragma once
 
-class Face {
+class Face 
+{
 public:
 	
 	vector<int> vertex_indices, normal_indices, uv_indices;
 	int *v, *vt, *vn;
 	int length;
 
-	Face() {
+	Face() 
+	{
 
 	}
 
@@ -35,5 +37,4 @@ public:
 			vn[i] = arr3[i];
 		}
 	}
-
 };
