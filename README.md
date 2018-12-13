@@ -191,7 +191,7 @@ bed_mesh.set_color(RGBColor(1, 1, 1));
 ### More Examples 
 i, provide a small set of Examples in the [Other Directory](https://github.com/MadeYoga/Grafika-Komputer)`. its messy, gonna clean it later`.
 ## Docs
-The basics of computer graphics was **MATH**, so, i'm not going to explain every single detail about these `math` thing<br>
+The basics of computer graphics is **MATH**, so, i'm not going to explain every single detail about these `math` thing<br>
 i'm only going to explain how these classes works.
 ### **Vector.h**
 ```cpp
