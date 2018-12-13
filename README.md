@@ -112,6 +112,82 @@ void main(int argc, char **argv) {
 
 }
 ```
+
+### Example Camera Movement
+```cpp
+Camera cam;
+
+void keyPressed(unsigned char key, int x, int y) {
+	if (key == 'p') {
+		cam.change_view_y(-20);
+	}
+	else if (key == 'a') {
+		cam.change_view_x(20);
+	}
+	else if (key == 'l') {
+		cam.change_view_y(20);
+	}
+	else if (key == 'd') {
+		cam.change_view_x(-20);
+	}
+	else if (key == 'w') {
+		cam.change_view_z(-20);
+	}
+	else if (key == 's') {
+		cam.change_view_z(20);
+	}
+	else if (key == 'h') {
+		cam.rotate(Vector(1, 0, 0, 1), 10);
+	}
+	else if (key == 'j') {
+		cam.rotate(Vector(-1, 0, 0, 1), 10);
+	}
+	else if (key == 'q') {
+		cam.rotate(Vector(0, 1, 0, 1), 10);
+	}
+	else if (key == 'e') {
+		cam.rotate(Vector(0, -1, 0, 1), 10);
+	}
+	else if (key == 'k') {
+		cam.rotate(Vector(0, 0, 1, 1), 10);
+	}
+	else if (key == 'i') {
+		cam.rotate(Vector(0, 0, -1, 1), 10);
+	}
+}
+
+void test() {
+	// Display something.
+}
+
+void main(int argc, char **argv) {
+	// INIT
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(WINDOW_SIZE, WINDOW_SIZE);
+	glutCreateWindow("GRAFKOM GG!");
+	glutIdleFunc(idle);
+	glutDisplayFunc(test);
+	initWorld();
+	glutKeyboardFunc(keyPressed); // 
+	glutMainLoop();
+}
+```
+
+### Example Transformation on obj
+```cpp
+// Load obj file
+bed_mesh.loadObject_square("bed.obj");
+// scale
+bed_mesh.matrix_transform = Transformation().scale(Vector(2, 2, 2, 1));
+// translate, this will force .matrix_transform value to change.
+bed_mesh.matrix_transform.translate(Vector(400, 137, -400, 1));
+// rotate x
+bed_mesh.matrix_transform = bed_mesh.matrix_transform.multiplies(Transformation().rotate_x(-1.575));
+// set color to white. default: green
+bed_mesh.set_color(RGBColor(1, 1, 1));
+```
+
 ### More Examples 
 i, provide a small set of Examples in the [Other Directory](https://github.com/MadeYoga/Grafika-Komputer)`. its messy, gonna clean it later`.
 ## Docs
