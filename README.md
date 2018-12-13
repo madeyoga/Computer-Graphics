@@ -77,7 +77,7 @@ void initWorld() {
 	// Define Objects
 	Mesh teapot_mesh, cube_mesh;
 	// load .obj file
-	teapot_mesh.loadObject_square("teko.txt");
+	teapot_mesh.loadObject_poly("teko.txt");
 	cube_mesh.loadObject_square("kubus.txt");
 	// add Objects to world
 	world.add_mesh(teapot_mesh);
